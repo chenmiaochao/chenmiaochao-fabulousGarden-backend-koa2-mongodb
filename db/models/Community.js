@@ -8,8 +8,7 @@ const CommunitySchema = mongoose.Schema({
         type: String,
         require: true,
     },
-    avatar?: String,
-    description: string
+    description: String
 }, {timestamps:true})
 
 //Model ->collection
