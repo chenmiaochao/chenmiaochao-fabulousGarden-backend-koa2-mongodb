@@ -4,18 +4,19 @@ const Community = require('../db/models/Community')
 const getList = async (author, keyword) => {
 
     // const whereOpt = {}
-    // if(author) whereOpt.author = author
+    // if(cid) whereOpt.cid = cid
     // if(keyword) whereOpt.keyword = new RegExp(keyword) 
     // //RegExp创建正则表达式 实现模糊查询 
-    const list = await Community.find({}).sort({_id: -1})
+    const list = await Community.find({}).sort({_id: 1})
     return list
 }
 
 const getDetail = async (id) => {
-
-    const Community = await Community.findById(id)
+    // console.log(id)
+    const community = await Community.findById(id)
+    // console.log(community)
     //创建时间格式化
-    return Community
+    return community
 }
 
 const newCommunity = async (CommunityData = {}) => {

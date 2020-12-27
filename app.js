@@ -16,26 +16,10 @@ const users = require('./routes/users')
 const blog  = require('./routes/blog')
 const user  = require('./routes/user')
 const community  = require('./routes/community')
-
+const event  = require('./routes/event')
+const post  = require('./routes/post')
 
 const { REDIS_CONF } = require('./conf/db')
-
-// const getList = async (event, context) => {
-//   //选择集合 进行操作
-//   const res = await db.collection('db01')
-//     .get()
-//   console.log(res)
-//   return {
-//     res
-//   }
-// }
-
-// add01();
-// getList();
-
-// db.collection("db01").get();
-
-
 
 // error handler
 onerror(app)
@@ -96,6 +80,9 @@ app.use(users.routes(), users.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
 app.use(community.routes(), community.allowedMethods())
+app.use(event.routes(), event.allowedMethods())
+app.use(post.routes(), post.allowedMethods())
+
 
 // error-handling
 app.on('error', (err, ctx) => {

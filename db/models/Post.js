@@ -8,10 +8,10 @@ const PostSchema = mongoose.Schema({
         type: String,
         require: true,
     },
-    image?: String,
+    image: String,
     createdAt: String,
-    communityId?: number,
-    eventId: number
+    community: String,
+    event: String
 }, {timestamps:true})
 
 //Model ->collection

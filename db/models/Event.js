@@ -8,8 +8,9 @@ const EventSchema = mongoose.Schema({
         type: String,
         require: true,
     },
-    avatar?: String,
-    description: string
+    avatar: String,
+    description: String,
+    community: String
 }, {timestamps:true})
 
 //Model ->collection

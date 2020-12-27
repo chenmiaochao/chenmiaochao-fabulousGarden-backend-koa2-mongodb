@@ -2,14 +2,14 @@ const router = require('koa-router')()
 const {
   getList,
   getDetail,
-  newBlog,
-  updateBlog,
-  delBlog
-} = require('../controller/community')
+  newPost,
+  updatePost,
+  delPost
+} = require('../controller/post')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
 
-router.prefix('/api/community')
+router.prefix('/api/post')
 
 router.get('/', async function (ctx, next) {
     // let author = ctx.query.author || ''
@@ -34,23 +34,21 @@ router.get('/', async function (ctx, next) {
     ctx.body = new SuccessModel(listData)
 })
 
-
-
-router.get('/:cid', async function (ctx, next) {
-    // console.log(ctx.params['cid'])
-    const data = await getDetail(ctx.params['cid'])
+router.get('/:eid', async function (ctx, next) {
+    // console.log("eid",ctx.params)
+    const data = await getDetail(ctx.params['eid'])
     ctx.body = new SuccessModel(data)
 })
 
 router.post('/new', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
   body.author = ctx.session.username
-  const data = await newBlog(body)
+  const data = await newPost(body)
   ctx.body = new SuccessModel(data)
 })
 
 router.post('/update', loginCheck, async function (ctx, next) {
-    const val = await updateBlog(ctx.query.id, ctx.request.body)
+    const val = await updatePost(ctx.query.id, ctx.request.body)
     if (val) {
         ctx.body = new SuccessModel()
     } else {
@@ -60,7 +58,7 @@ router.post('/update', loginCheck, async function (ctx, next) {
 
 router.post('/del', loginCheck, async function (ctx, next) {
   const author = ctx.session.username
-  const val = await delBlog(ctx.query.id, author)
+  const val = await delPost(ctx.query.id, author)
   if (val) {
       ctx.body = new SuccessModel()
   } else {

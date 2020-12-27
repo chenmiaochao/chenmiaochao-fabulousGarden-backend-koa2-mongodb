@@ -3,7 +3,7 @@ const mongoose = require('../db')
 
 //Schema定义数据规范
 const UserSchema = mongoose.Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         unique: true

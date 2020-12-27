@@ -6,15 +6,15 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 router.prefix('/api/user')
 
 router.post('/login', async function (ctx, next) {
-    const { username, password } = ctx.request.body
-    const data = await login(username, password)
+    const { email, password } = ctx.request.body
+    console.log('payload', ctx.request.body)
+    const data = await login(email, password)
     // const userData = JSON.stringify(data);
-    console.log('routes login data is '+
-    data)
-    if (data.username) {
+    console.log(data)
+    if (data.token) {
         // 设置 session
-        ctx.session.username = data.username
-        ctx.session.realname = data.realname
+        // ctx.session.email = data.email
+        // ctx.session.realname = data.realname
 
         ctx.body = new SuccessModel()
         return
