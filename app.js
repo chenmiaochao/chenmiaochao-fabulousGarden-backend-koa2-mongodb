@@ -10,6 +10,7 @@ const redisStore = require('koa-redis')
 const path = require('path')
 const fs = require('fs')
 const morgan = require('koa-morgan')
+const koaJwt = require('koa-jwt')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -74,7 +75,21 @@ app.use(session({
   })
 }))
 
+
 // routes
+app.use(
+  koaJwt({
+    secret: 'fb-backend'
+  }).unless({
+    path: [
+      '/api/user/login',
+      '/api/user/current',
+      '/api/community',
+      '/api/event',
+      '/api/post'
+    ]
+  })
+)
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())

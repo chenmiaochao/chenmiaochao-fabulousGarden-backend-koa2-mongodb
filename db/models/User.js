@@ -8,8 +8,8 @@ const UserSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    password: String,
-    realname : String
+    password: {type: String, require: true, select: false},
+    name : String
 }, {timestamps:true})
 
 //Model ->collection

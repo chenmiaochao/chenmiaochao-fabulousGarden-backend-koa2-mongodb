@@ -1,37 +1,30 @@
 const router = require('koa-router')()
 const json = require('koa-json')
-const { login } = require('../controller/user')
+const { login, currentUser } = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const jwt = require('jsonwebtoken')
 
 router.prefix('/api/user')
 
 router.post('/login', async function (ctx, next) {
     const { email, password } = ctx.request.body
-    console.log('payload', ctx.request.body)
     const data = await login(email, password)
     // const userData = JSON.stringify(data);
     console.log(data)
     if (data.token) {
-        // 设置 session
-        // ctx.session.email = data.email
-        // ctx.session.realname = data.realname
-
-        ctx.body = new SuccessModel()
+        //tokenを返す
+        ctx.body = data
         return
     }
-    ctx.body = new ErrorModel('登录失败')
+    ctx.body = new ErrorModel('ログイン失败')
 })
 
-// router.get('/session-test', async function (ctx, next) {
-//   if (ctx.session.viewCount == null) {
-//     ctx.session.viewCount = 0
-//   }
-//   ctx.session.viewCount++
 
-//   ctx.body ={
-//     errno: 0,
-//     viewCount: ctx.session.viewCount
-//   }
-// })
+router.get('/current', async function (ctx, next) {
+    let token = ctx.headers.authorization
+    console.log(jwt.verify(token.split(' ')[1], 'fb-backend'))
+    const data = await currentUser(jwt.verify(token.split(' ')[1], 'fb-backend').email)
+    ctx.body = data
+})
 
 module.exports = router
