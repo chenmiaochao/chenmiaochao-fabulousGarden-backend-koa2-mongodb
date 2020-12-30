@@ -11,7 +11,7 @@ const path = require('path')
 const fs = require('fs')
 const morgan = require('koa-morgan')
 const koaJwt = require('koa-jwt')
-
+const koaBody = require('koa-body')
 const index = require('./routes/index')
 const users = require('./routes/users')
 const blog  = require('./routes/blog')
@@ -26,9 +26,9 @@ const { REDIS_CONF } = require('./conf/db')
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}))
+// app.use(bodyparser({
+//   enableTypes:['json', 'form', 'text']
+// }))
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -75,6 +75,15 @@ app.use(session({
   })
 }))
 
+//koa-body 
+app.use(koaBody({
+  multipart: true,  //设置支持文件格式
+  formidable: {
+   //这是个 node 包, 设置一下选项
+   uploadDir: path.join(__dirname,'/public/uploads'), //设置上传目录
+   keepExtensions: true,  //设置文件后缀名保留
+  }
+}))
 
 // routes
 app.use(

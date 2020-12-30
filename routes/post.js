@@ -1,3 +1,4 @@
+const tcb =  require('@cloudbase/js-sdk')
 const router = require('koa-router')()
 const {
   getList,
@@ -39,6 +40,17 @@ router.get('/:eid', async function (ctx, next) {
     const data = await getDetail(ctx.params['eid'])
     ctx.body = new SuccessModel(data)
 })
+
+router.post('/upload', loginCheck, async function (ctx, next) {
+    const body = ctx.request.files
+    console.log("upload-files",body,'-------------------------')
+    const tcbApp = tcb.init({
+        env: ""
+      });
+      
+
+    ctx.body = new SuccessModel('upload')
+  })
 
 router.post('/new', loginCheck, async function (ctx, next) {
   const body = ctx.request.body
