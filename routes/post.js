@@ -1,11 +1,14 @@
-const tcb =  require('@cloudbase/js-sdk')
+// const tcb = require('@cloudbase/node-sdk')
+// const tcbKey = require('../cloudbaserc.json')
+// const fs = require("fs");
 const router = require('koa-router')()
 const {
   getList,
   getDetail,
   newPost,
   updatePost,
-  delPost
+  delPost,
+  upload
 } = require('../controller/post')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
@@ -43,13 +46,26 @@ router.get('/:eid', async function (ctx, next) {
 
 router.post('/upload', loginCheck, async function (ctx, next) {
     const body = ctx.request.files
-    console.log("upload-files",body,'-------------------------')
-    const tcbApp = tcb.init({
-        env: ""
-      });
-      
+    // console.log("upload-files   ",body.photo,'   -------------------------')
+    // console.log("body.photo.path-----",body.photo.path)
+    // let cloudFileName = "uploads/"+body.photo.name
+    // const tcbApp = tcb.init(tcbKey)
 
-    ctx.body = new SuccessModel('upload')
+    // tcbApp.uploadFile({
+    //     // 云存储的路径
+    //     cloudPath: cloudFileName,
+    //     // 需要上传的文件，File 类型
+    //     fileContent: fs.createReadStream(`${body.photo.path}`)
+    //     })
+    //     .then((res) => {
+    //     // 返回文件 ID
+    //     console.log(res.fileID)
+    // })
+    const res = await upload(body)
+
+    // await console.log(await upload(body))
+
+    return ctx.body = new SuccessModel('upload')
   })
 
 router.post('/new', loginCheck, async function (ctx, next) {

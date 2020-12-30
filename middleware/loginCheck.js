@@ -12,7 +12,7 @@ module.exports = async (ctx, next) => {
         }
 
         }
-        console.log('loginCheck',jwt.verify(token.split(' ')[1], 'fb-backend'), '88中间件')
+        // console.log('loginCheck',jwt.verify(token.split(' ')[1], 'fb-backend'), '88中间件')
         await next()
         return
     // sessionにはusername保持していないため
