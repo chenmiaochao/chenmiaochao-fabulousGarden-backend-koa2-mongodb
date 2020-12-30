@@ -1,6 +1,4 @@
-// const tcb = require('@cloudbase/node-sdk')
-// const tcbKey = require('../cloudbaserc.json')
-// const fs = require("fs");
+const exif = require('exif-js')
 const router = require('koa-router')()
 const {
   getList,
@@ -46,26 +44,15 @@ router.get('/:eid', async function (ctx, next) {
 
 router.post('/upload', loginCheck, async function (ctx, next) {
     const body = ctx.request.files
-    // console.log("upload-files   ",body.photo,'   -------------------------')
-    // console.log("body.photo.path-----",body.photo.path)
-    // let cloudFileName = "uploads/"+body.photo.name
-    // const tcbApp = tcb.init(tcbKey)
-
-    // tcbApp.uploadFile({
-    //     // 云存储的路径
-    //     cloudPath: cloudFileName,
-    //     // 需要上传的文件，File 类型
-    //     fileContent: fs.createReadStream(`${body.photo.path}`)
-    //     })
-    //     .then((res) => {
-    //     // 返回文件 ID
-    //     console.log(res.fileID)
-    // })
     const res = await upload(body)
-
-    // await console.log(await upload(body))
-
-    return ctx.body = new SuccessModel('upload')
+    console.log(body)
+    // todo ::::::
+    // 画像laglngを解析記録　返す
+    // await console.log(exif.getAllTags(body.photo))
+    // await console.log('GPSLatitude',exif.getAllTags(body.photo).GPSLatitude)
+    // 以上は時間かかりすぎ。。。
+    const data = { imgUrl: res.download_url }
+    return ctx.body = new SuccessModel(data,'upload successed')
   })
 
 router.post('/new', loginCheck, async function (ctx, next) {
