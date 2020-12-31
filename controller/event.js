@@ -7,7 +7,7 @@ const getList = async (author, keyword) => {
     // if(cid) whereOpt.cid = cid
     // if(keyword) whereOpt.keyword = new RegExp(keyword) 
     // //RegExp创建正则表达式 实现模糊查询 
-    const list = await Event.find({}).sort({_id: -1})
+    const list = await Event.find({}).sort({_id: 1})
     return list
 }
 

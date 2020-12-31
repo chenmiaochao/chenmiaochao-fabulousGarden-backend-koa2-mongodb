@@ -85,20 +85,22 @@ app.use(koaBody({
   }
 }))
 
-// routes
-app.use(
-  koaJwt({
-    secret: 'fb-backend'
-  }).unless({
-    path: [
-      '/api/user/login',
-      '/api/user/current',
-      '/api/community',
-      '/api/event',
-      '/api/post'
-    ]
-  })
-)
+// routes jwt認証、問題あり、
+// app.use(
+//   koaJwt({
+//     secret: 'fb-backend'
+//   }).unless({
+//     path: [
+//       '/api/user/login',
+//       '/api/user/current',
+//       '/api/community',
+//       '/api/event',
+//       '/api/event/',
+//       '/api/post',
+//       '/api/post/'
+//     ]
+//   })
+// )
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())

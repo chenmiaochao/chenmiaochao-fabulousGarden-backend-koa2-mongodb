@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const {
   getList,
+  getAllList,
   getDetail,
   newBlog,
   updateBlog,
@@ -12,33 +13,22 @@ const loginCheck = require('../middleware/loginCheck')
 router.prefix('/api/community')
 
 router.get('/', async function (ctx, next) {
-    // let author = ctx.query.author || ''
-    // const keyword = ctx.query.keyword || ''
-    // let cid = ctx.query.cid || ''
-    // if (ctx.query.isadmin) {
-    //     console.log('is admin')
-    //     // 管理员界面
-    //     if (ctx.session.username == null) {
-    //         console.error('is admin, but no login')
-    //         // 未登录
-    //         ctx.body = new ErrorModel('未登录')
-    //         return
-    //     }
-    //     // 强制查询自己的博客
-    //     author = ctx.session.username
-    // }
-
-    // const listData = await getList(author, keyword)
     const listData = await getList()
     // console.log(listData)
     ctx.body = new SuccessModel(listData)
 })
 
+router.get('/all', async function(ctx, next) {
+    const AllListData = await getAllList()
+    console.log(AllListData)
+    ctx.body=  new SuccessModel(AllListData)
+})
 
 
 router.get('/:cid', async function (ctx, next) {
-    // console.log(ctx.params['cid'])
+    // console.log('cid',ctx.params['cid'])
     const data = await getDetail(ctx.params['cid'])
+    // console.log('find cid', data)
     ctx.body = new SuccessModel(data)
 })
 

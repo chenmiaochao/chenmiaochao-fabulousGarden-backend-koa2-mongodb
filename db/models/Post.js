@@ -4,10 +4,12 @@ const mongoose = require('../db')
 //Schema定义数据规范
 const PostSchema = mongoose.Schema({
     // Id: number;
+    author: String,
     title: {
         type: String,
         require: true,
     },
+    content: String,
     image: String,
     createdAt: String,
     community: String,

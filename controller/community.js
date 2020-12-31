@@ -1,6 +1,6 @@
 const xss = require('xss')
 const Community = require('../db/models/Community')
-
+const Event = require('../db/models/Event')
 const getList = async (author, keyword) => {
 
     // const whereOpt = {}
@@ -9,6 +9,19 @@ const getList = async (author, keyword) => {
     // //RegExp创建正则表达式 实现模糊查询 
     const list = await Community.find({}).sort({_id: 1})
     return list
+}
+
+const getAllList = async () => {
+    const ComList = await Community.find({}).sort({_id: 1})
+    var newComList = []
+    for (var value of ComList) {
+        let sEnvList = await Event.find({community:value._id}).sort({_id: 1})
+        value = JSON.stringify(value)
+        value = JSON.parse(value)
+        value.events = sEnvList
+        newComList.push(value)
+    }
+    return newComList
 }
 
 const getDetail = async (id) => {
@@ -59,6 +72,7 @@ const delCommunity = async (id, author) => {
 
 module.exports = {
     getList,
+    getAllList,
     getDetail,
     newCommunity,
     updateCommunity,

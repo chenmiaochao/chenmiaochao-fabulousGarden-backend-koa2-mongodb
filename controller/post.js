@@ -1,5 +1,6 @@
 const xss = require('xss')
 const Post = require('../db/models/Post')
+const Community = require('../db/models/Community')
 const tcb = require('@cloudbase/node-sdk')
 const tcbKey = require('../cloudbaserc.json')
 const fs = require("fs");
@@ -64,20 +65,11 @@ const upload = async (body) => {
 }
 
 
-const newPost = async (PostData = {}) => {
-    const title = xss(PostData.title)
-    const content = xss(PostData.content)
-    const author = PostData.author
+const newPost = async (newPost) => {
 
-    const Post = await Post.create({
-        title,
-        content,
-        author
-    })
+    const newPostdata = await Post.create(newPost)
 
-    return {
-        id: Post._id
-    }
+    return newPostdata._id
 }
 
 const updatePost = async (id, PostData = {}) => {
