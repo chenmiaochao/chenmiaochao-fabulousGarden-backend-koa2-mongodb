@@ -32,19 +32,12 @@ const getDetail = async (id) => {
     return community
 }
 
-const newCommunity = async (CommunityData = {}) => {
-    const title = xss(CommunityData.title)
-    const content = xss(CommunityData.content)
-    const author = CommunityData.author
+const newCommunity = async (CommunityData) => {
 
-    const Community = await Community.create({
-        title,
-        content,
-        author
-    })
-
+    const nCommunity = await Community.create(CommunityData)
+    console.log(nCommunity)
     return {
-        id: Community._id
+        _id: nCommunity._id
     }
 }
 

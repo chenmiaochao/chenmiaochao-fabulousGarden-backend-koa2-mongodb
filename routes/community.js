@@ -3,10 +3,11 @@ const {
   getList,
   getAllList,
   getDetail,
-  newBlog,
+  newCommunity,
   updateBlog,
   delBlog
 } = require('../controller/community')
+const axios = require('axios')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
 
@@ -33,10 +34,19 @@ router.get('/:cid', async function (ctx, next) {
 })
 
 router.post('/new', loginCheck, async function (ctx, next) {
+    
   const body = ctx.request.body
-  body.author = ctx.session.username
-  const data = await newBlog(body)
-  ctx.body = new SuccessModel(data)
+  const avatar = await axios.get('https://api.thecatapi.com/v1/images/search?limt=1').then(res => {
+    console.log(res.data[0].url)
+    return res.data[0].url
+  })
+
+    console.log("avatar",avatar)
+    body.avatar = avatar
+    console.log(body)
+    const data = await newCommunity(body)
+    console.log(data)
+    ctx.body = new SuccessModel(data)
 })
 
 router.post('/update', loginCheck, async function (ctx, next) {

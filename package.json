@@ -11,6 +11,7 @@
   "dependencies": {
     "@cloudbase/js-sdk": "^1.3.3",
     "@cloudbase/node-sdk": "^2.4.7",
+    "axios": "^0.21.1",
     "debug": "^4.1.1",
     "exif-js": "^2.3.0",
     "jsonwebtoken": "^8.5.1",

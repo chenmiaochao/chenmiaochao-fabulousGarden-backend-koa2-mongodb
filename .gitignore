@@ -2,6 +2,8 @@
 node_modules
 /dist
 cloudbaserc.json
+public/uploads
+public/uploads/
 
 # local env files
 .env.local

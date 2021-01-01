@@ -12,6 +12,7 @@ const PostSchema = mongoose.Schema({
     content: String,
     image: String,
     createdAt: String,
+    createdAtMonth: String,
     community: String,
     event: String
 }, {timestamps:true})

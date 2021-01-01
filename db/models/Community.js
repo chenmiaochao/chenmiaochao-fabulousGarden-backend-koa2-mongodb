@@ -4,10 +4,12 @@ const mongoose = require('../db')
 //Schema定义数据规范
 const CommunitySchema = mongoose.Schema({
     // Id: number;
-    title: {
+    communityName: {
         type: String,
         require: true,
     },
+    author: String,
+    avatar: String,
     description: String
 }, {timestamps:true})
 
