@@ -33,6 +33,7 @@
     "mongoose": "^5.10.13",
     "pug": "^2.0.3",
     "util": "^0.12.3",
+    "xml2js": "^0.4.23",
     "xss": "^1.0.8"
   },
   "devDependencies": {
