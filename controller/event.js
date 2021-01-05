@@ -1,6 +1,6 @@
 const xss = require('xss')
 const Event = require('../db/models/Event')
-
+const xml2js = require('xml2js')
 const getList = async (author, keyword) => {
 
     // const whereOpt = {}
@@ -19,19 +19,12 @@ const getDetail = async (id) => {
     return event
 }
 
-const newEvent = async (EventData = {}) => {
-    const title = xss(EventData.title)
-    const content = xss(EventData.content)
-    const author = EventData.author
-
-    const Event = await Event.create({
-        title,
-        content,
-        author
-    })
+const newEvent = async (EventData) => {
+    const newEvent = await Event.create(EventData)
 
     return {
-        id: Event._id
+        community: newEvent.community,
+        _id: newEvent._id
     }
 }
 
@@ -56,11 +49,23 @@ const delEvent = async (id, author) => {
     if(Event == null) return false
     return true
 }
-
+const Xml2Json = async (xmlData) => {
+    // console.log(xmlData)
+    xmlParser = new xml2js.Parser()
+    xmlParser.parseString(xmlData, function (err,result) {
+        // console.dir(result)
+        var data = result.Results.Hotel
+        // console.log(data)
+        // console.log('Done');
+        // resolve(data)
+        return data
+    })
+}
 module.exports = {
     getList,
     getDetail,
     newEvent,
     updateEvent,
-    delEvent
+    delEvent,
+    Xml2Json
 }

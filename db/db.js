@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const url = 'mongodb://localhost:27017'
+const url = 'mongodb://115.159.115.210:27017'
 const dbName = 'fb'
 
 mongoose.connect(`${url}/${dbName}`, {

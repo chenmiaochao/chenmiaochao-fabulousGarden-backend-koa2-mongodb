@@ -4,11 +4,15 @@ const mongoose = require('../db')
 //Schema定义数据规范
 const EventSchema = mongoose.Schema({
     // Id: number;
-    title: {
+    eventName: {
         type: String,
         require: true,
     },
+    author: String,
+    date: String,
+    place: String,
     avatar: String,
+    price: String,
     description: String,
     community: String
 }, {timestamps:true})

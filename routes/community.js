@@ -9,6 +9,9 @@ const {
   updateBlog,
   delBlog
 } = require('../controller/community')
+const {
+    newEvent,
+  } = require('../controller/event')
 const axios = require('axios')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
@@ -116,7 +119,18 @@ router.post('/new', loginCheck, async function (ctx, next) {
     body.avatar = avatar
     console.log(body)
     const data = await newCommunity(body)
-    console.log(data)
+    console.log('communitydata', data)
+    const defaultEvent = {
+        avatar: avatar,
+        eventName: body.communityName + '初めてのイベント',
+        description: 'デフォルトのイベント',
+        author: body.author,
+        date: new Date(),
+        place: '',
+        price: '',
+        community: data._id
+      }
+    const data2 = await newEvent(defaultEvent)
     //新規コミュニティ創生後、デフォルトの一個イベント作成
     ctx.body = new SuccessModel(data)
 })
