@@ -88,13 +88,12 @@ const updatePost = async (id, PostData = {}) => {
     return resPost
 }
 
-const delPost = async (id, author) => {
-    const Post = await Post.findByIdAndDelete(
-        {_id: id,
-        author
+const delPost = async (id) => {
+    const resPost = await Post.findByIdAndDelete(
+        {_id: id
         })
     if(Post == null) return false
-    return true
+    return resPost
 }
 
 module.exports = {

@@ -53,13 +53,10 @@ const updateCommunity = async (id, CommunityData = {}) => {
     return resCommunity
 }
 
-const delCommunity = async (id, author) => {
-    const Community = await Community.findByIdAndDelete(
-        {_id: id,
-        author
-        })
+const delCommunity = async (id) => {
+    const resCommunity = await Community.findByIdAndDelete({_id: id})
     if(Community == null) return false
-    return true
+    return resCommunity
 }
 
 module.exports = {

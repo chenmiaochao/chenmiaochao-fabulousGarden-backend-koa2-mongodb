@@ -137,14 +137,14 @@ router.patch('/:id', loginCheck, async function (ctx, next) {
     }
 })
 
-router.post('/del', loginCheck, async function (ctx, next) {
-  const author = ctx.session.username
-  const val = await delEvent(ctx.query.id, author)
-  if (val) {
-      ctx.body = new SuccessModel()
-  } else {
-      ctx.body = new ErrorModel('删除博客失败')
-  }
-})
 
+router.delete('/:id', loginCheck, async function (ctx, next) {
+
+    const val = await delEvent(ctx.params.id)
+    if (val) {
+        ctx.body = new SuccessModel(val)
+    } else {
+        ctx.body = new ErrorModel('删除博客失败')
+    }
+  })
 module.exports = router

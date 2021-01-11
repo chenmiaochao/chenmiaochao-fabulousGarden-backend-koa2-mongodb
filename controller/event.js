@@ -47,13 +47,12 @@ const updateEvent = async (id, EventData = {}) => {
     return resEvent
 }
 
-const delEvent = async (id, author) => {
-    const Event = await Event.findByIdAndDelete(
-        {_id: id,
-        author
+const delEvent = async (id) => {
+    const resEvent = await Event.findByIdAndDelete(
+        {_id: id
         })
     if(Event == null) return false
-    return true
+    return resEvent
 }
 const Xml2Json = async (xmlData) => {
     // console.log(xmlData)
