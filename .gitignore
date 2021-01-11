@@ -5,7 +5,7 @@ serc.json
 cloudbaserc.json
 public/uploads
 public/uploads/
-
+cloudbaserc1.json
 # local env files
 .env.local
 .env.*.local
