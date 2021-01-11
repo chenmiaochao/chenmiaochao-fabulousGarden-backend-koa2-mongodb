@@ -39,8 +39,10 @@ router.post('/upload', loginCheck, async function (ctx, next) {
   })
 
 router.post('/new', loginCheck, async function (ctx, next) {
+
   const body = ctx.request.body
   // console.log(body)
+    // console.log(body)
   const data = await newPost(body)
   console.log('newPost Data---------', data)
   ctx.body = new SuccessModel(data)
