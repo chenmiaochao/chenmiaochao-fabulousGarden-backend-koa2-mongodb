@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+/db/db.js
 serc.json
 cloudbaserc.json
 public/uploads
