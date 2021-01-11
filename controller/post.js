@@ -2,7 +2,7 @@ const xss = require('xss')
 const Post = require('../db/models/Post')
 const Community = require('../db/models/Community')
 const tcb = require('@cloudbase/node-sdk')
-const tcbKey = require('../cloudbaserc.json')
+const tcbKey = require('../cloudbaserc1.json')
 const fs = require("fs");
 const { resolve } = require('path');
 // const { resolve } = require('dns');
@@ -69,20 +69,23 @@ const newPost = async (newPost) => {
 
     const newPostdata = await Post.create(newPost)
 
-    return newPostdata._id
+    return newPostdata
 }
 
 const updatePost = async (id, PostData = {}) => {
-    const title = xss(PostData.title)
-    const content = xss(PostData.content)
+    const title = PostData.title
+    const content = PostData.content
+    const image = PostData.image
+    const community = PostData.community
+    const event = PostData.event
 
-    const Post = await Post.findOneAndUpdate(
+    const resPost = await Post.findOneAndUpdate(
         {_id: id},
-        {title,content},
+        {title,content,image,community,event},
         {new: true}
     )
     if(Post == null) return false
-    return true
+    return resPost
 }
 
 const delPost = async (id, author) => {

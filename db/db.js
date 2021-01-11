@@ -8,6 +8,7 @@ mongoose.connect(`${url}/${dbName}`, {
      useUnifiedTopology: true 
     //配置
 })
+mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true)
 const db = mongoose.connection
 

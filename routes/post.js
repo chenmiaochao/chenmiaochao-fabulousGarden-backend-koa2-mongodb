@@ -46,10 +46,10 @@ router.post('/new', loginCheck, async function (ctx, next) {
   ctx.body = new SuccessModel(data)
 })
 
-router.post('/update', loginCheck, async function (ctx, next) {
-    const val = await updatePost(ctx.query.id, ctx.request.body)
+router.patch('/:id', loginCheck, async function (ctx, next) {
+    const val = await updatePost(ctx.params.id, ctx.request.body)
     if (val) {
-        ctx.body = new SuccessModel()
+        ctx.body = new SuccessModel(val)
     } else {
         ctx.body = new ErrorModel('更新博客失败')
     }

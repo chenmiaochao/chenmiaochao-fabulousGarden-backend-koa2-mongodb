@@ -122,14 +122,16 @@ router.post('/new', loginCheck, async function (ctx, next) {
     body.avatar = avatar
     // console.log(body)
     const data = await newEvent(body)
-    console.log(data)
+    // console.log(data)
     ctx.body = new SuccessModel(data)
 })
+// router.patch('/:id', loginCheck, async function (ctx, next) {
+router.patch('/:id', loginCheck, async function (ctx, next) {
+    console.log('ctx.query[id]', ctx.params['id'])
 
-router.post('/update', loginCheck, async function (ctx, next) {
-    const val = await updateEvent(ctx.query.id, ctx.request.body)
+    const val = await updateEvent(ctx.params['id'], ctx.request.body)
     if (val) {
-        ctx.body = new SuccessModel()
+        ctx.body = new SuccessModel(val)
     } else {
         ctx.body = new ErrorModel('更新博客失败')
     }

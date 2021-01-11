@@ -6,8 +6,8 @@ const {
   getAllList,
   getDetail,
   newCommunity,
-  updateBlog,
-  delBlog
+  updateCommunity,
+  delCommunity
 } = require('../controller/community')
 const {
     newEvent,
@@ -95,7 +95,7 @@ router.get('/perf', async function (ctx, next,) {
 
 router.get('/all', async function(ctx, next) {
     const AllListData = await getAllList()
-    console.log(AllListData)
+    // console.log(AllListData)
     ctx.body=  new SuccessModel(AllListData)
 })
 
@@ -103,7 +103,7 @@ router.get('/all', async function(ctx, next) {
 router.get('/:cid', async function (ctx, next) {
     // console.log('cid',ctx.params['cid'])
     const data = await getDetail(ctx.params['cid'])
-    // console.log('find cid', data)
+    console.log('find cid', data)
     ctx.body = new SuccessModel(data)
 })
 
@@ -111,11 +111,11 @@ router.post('/new', loginCheck, async function (ctx, next) {
     
   const body = ctx.request.body
   const avatar = await axios.get('https://api.thecatapi.com/v1/images/search?limt=1').then(res => {
-    console.log(res.data[0].url)
+    // console.log(res.data[0].url)
     return res.data[0].url
   })
 
-    console.log("avatar",avatar)
+    // console.log("avatar",avatar)
     body.avatar = avatar
     console.log(body)
     const data = await newCommunity(body)
@@ -135,10 +135,14 @@ router.post('/new', loginCheck, async function (ctx, next) {
     ctx.body = new SuccessModel(data)
 })
 
-router.post('/update', loginCheck, async function (ctx, next) {
-    const val = await updateBlog(ctx.query.id, ctx.request.body)
+router.patch('/:id', loginCheck, async function (ctx, next) {
+    // console.log('ctx.params[id]', ctx.params['id'])
+
+    // console.log('ctx.request.body', ctx.request.body)
+    const val = await updateCommunity(ctx.params['id'], ctx.request.body)
+    console.log('resVal', val)
     if (val) {
-        ctx.body = new SuccessModel()
+        ctx.body = new SuccessModel(val)
     } else {
         ctx.body = new ErrorModel('更新博客失败')
     }

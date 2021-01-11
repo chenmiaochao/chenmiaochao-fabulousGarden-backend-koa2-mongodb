@@ -60,20 +60,20 @@ if(ENV != 'production') {
   }));
 }
 // session 配置
-app.keys = ['WJiol#23123_']
-app.use(session({
-  // 配置 cookie
-  cookie: {
-    path: '/',
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000
-  },
-  // 配置 redis
-  store: redisStore({
-    // all: '127.0.0.1:6379'   // 写死本地的 redis
-    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
-  })
-}))
+// app.keys = ['WJiol#23123_']
+// app.use(session({
+//   // 配置 cookie
+//   cookie: {
+//     path: '/',
+//     httpOnly: true,
+//     maxAge: 24 * 60 * 60 * 1000
+//   },
+//   // 配置 redis
+//   store: redisStore({
+//     // all: '127.0.0.1:6379'   // 写死本地的 redis
+//     all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
+//   })
+// }))
 
 //koa-body 
 app.use(koaBody({

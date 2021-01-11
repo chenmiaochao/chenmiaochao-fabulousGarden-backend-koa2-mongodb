@@ -29,16 +29,22 @@ const newEvent = async (EventData) => {
 }
 
 const updateEvent = async (id, EventData = {}) => {
-    const title = xss(EventData.title)
-    const content = xss(EventData.content)
+    const eventName = EventData.eventName
+    const date = EventData.date
+    const place = EventData.place
+    const avatar = EventData.avatar
+    const price = EventData.price
+    const description = EventData.description
+    const community = EventData.community
 
-    const Event = await Event.findOneAndUpdate(
+    const resEvent = await Event.findOneAndUpdate(
         {_id: id},
-        {title,content},
+        {eventName,date,place,avatar,price,description,community},
         {new: true}
     )
+    console.log(resEvent)
     if(Event == null) return false
-    return true
+    return resEvent
 }
 
 const delEvent = async (id, author) => {

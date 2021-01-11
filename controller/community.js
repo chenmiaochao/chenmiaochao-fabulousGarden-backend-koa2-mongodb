@@ -27,8 +27,7 @@ const getAllList = async () => {
 const getDetail = async (id) => {
     // console.log(id)
     const community = await Community.findById(id)
-    // console.log(community)
-    //创建时间格式化
+
     return community
 }
 
@@ -42,16 +41,16 @@ const newCommunity = async (CommunityData) => {
 }
 
 const updateCommunity = async (id, CommunityData = {}) => {
-    const title = xss(CommunityData.title)
-    const content = xss(CommunityData.content)
-
-    const Community = await Community.findOneAndUpdate(
+    const communityName = CommunityData.communityName
+    const avatar = CommunityData.avatar
+    const description = CommunityData.description
+    const resCommunity = await Community.findOneAndUpdate(
         {_id: id},
-        {title,content},
+        {communityName,avatar,description},
         {new: true}
     )
-    if(Community == null) return false
-    return true
+    if(resCommunity == null) return false
+    return resCommunity
 }
 
 const delCommunity = async (id, author) => {
